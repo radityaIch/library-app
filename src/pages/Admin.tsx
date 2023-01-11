@@ -29,6 +29,7 @@ import {
 	IconCheck,
 	IconLayoutDashboard,
 	IconLogout,
+	IconUser,
 } from "@tabler/icons";
 import { Dashboard } from "@/components/admin/Dashboard";
 import { Books } from "@/components/admin/Books";
@@ -37,6 +38,8 @@ import { showNotification, updateNotification } from "@mantine/notifications";
 import { FormBook } from "@/components/admin/FormBook";
 import { Lends } from "@/components/admin/Lends";
 import { FormLend } from "@/components/admin/FormLend";
+import { MemberList } from "@/components/admin/MemberList";
+import { FormMember } from "@/components/admin/FormMember";
 
 const navigations = [
 	{
@@ -53,6 +56,11 @@ const navigations = [
 		icon: <IconBooks size={24} stroke={1.5} />,
 		label: "Peminjaman",
 		link: "/admin/lends",
+	},
+	{
+		icon: <IconUser size={24} stroke={1.5} />,
+		label: "Keanggotaan",
+		link: "/admin/members",
 	},
 ];
 
@@ -96,8 +104,9 @@ export default function Admin() {
 
 	useEffect(() => {
 		function getAdminLoggedIn() {
-			localStorage.getItem("_token") &&
-			localStorage.getItem("role") == "Admin" ? "" : navigate('/hidden/login') 
+			localStorage.getItem("_token") && localStorage.getItem("role") == "Admin"
+				? ""
+				: navigate("/hidden/login");
 		}
 
 		getAdminLoggedIn();
@@ -151,7 +160,7 @@ export default function Admin() {
 									/>
 									<Stack spacing={0}>
 										<Text size="xs" weight={500}>
-											Anthony Fu
+											Admin
 										</Text>
 										<Text size={10} weight={400}>
 											Admin Library Staff
@@ -268,6 +277,50 @@ export default function Admin() {
 						localStorage.getItem("_token") &&
 						localStorage.getItem("role") === "Admin" ? (
 							<FormLend mode="Tambah" />
+						) : (
+							<Navigate to="/hidden/login" />
+						)
+					}
+				/>
+				<Route
+					path={"/lends/lend/:id"}
+					element={
+						localStorage.getItem("_token") &&
+						localStorage.getItem("role") === "Admin" ? (
+							<FormLend mode="Edit" />
+						) : (
+							<Navigate to="/hidden/login" />
+						)
+					}
+				/>
+				<Route
+					path={"/members"}
+					element={
+						localStorage.getItem("_token") &&
+						localStorage.getItem("role") === "Admin" ? (
+							<MemberList />
+						) : (
+							<Navigate to="/hidden/login" />
+						)
+					}
+				/>
+				<Route
+					path={"/members/member/create"}
+					element={
+						localStorage.getItem("_token") &&
+						localStorage.getItem("role") === "Admin" ? (
+							<FormMember mode="Tambah" />
+						) : (
+							<Navigate to="/hidden/login" />
+						)
+					}
+				/>
+				<Route
+					path={"/members/member/:id"}
+					element={
+						localStorage.getItem("_token") &&
+						localStorage.getItem("role") === "Admin" ? (
+							<FormMember mode="Edit" />
 						) : (
 							<Navigate to="/hidden/login" />
 						)

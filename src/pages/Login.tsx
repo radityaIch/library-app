@@ -45,7 +45,7 @@ export default function Login({ role }: Role) {
 		});
 
 		if (role === "Admin") {
-			const response = await adminLogin(form);
+			const response = await adminLogin(form).catch((r) => r);
 			if (response.status === 200) {
 				localStorage.setItem("_token", response.data.access_token);
 				localStorage.setItem("role", "Admin");

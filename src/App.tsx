@@ -75,7 +75,7 @@ export default function App() {
 					}
 				/>
 
-				<Route path="/login" element={<Login role="Member" />} />
+				<Route path="/login" element={<Login role="Admin" />} />
 				<Route path="/hidden/login" element={<Login role="Admin" />} />
 				<Route path="/" element={<Navigate to="/login" />} />
 				<Route path="/*" element={<h1>Not Found</h1>} />

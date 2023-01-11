@@ -17,13 +17,13 @@ export function adminLogin(form: Login) {
 			email: form.email,
 			password: form.password,
 		})
-		.then((res) => res);
+		.then((res) => res).catch((r) => r);
 
 	return response;
 }
 
 export function adminLogout() {
-	const response = axios.get(`${baseurl}/auth/admin/logout`, options);
+	const response = axios.get(`${baseurl}/auth/admin/logout`, options).catch((r) => r);
 	return response;
 }
 
@@ -41,7 +41,7 @@ export function memberLogin(form: Login) {
 			email: form.email,
 			password: form.password,
 		})
-		.then((res) => res);
+		.then((res) => res).catch((r) => r);
 
 	return response;
 }

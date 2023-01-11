@@ -3,17 +3,17 @@ import { default as axios } from "axios";
 const baseurl = import.meta.env.VITE_API_BASE_URL as string;
 
 export function getAllbook() {
-	const response = axios.get(`${baseurl}/books`);
+	const response = axios.get(`${baseurl}/books`).catch((r) => r);
 	return response;
 }
 
 export function getAllCategories() {
-	const response = axios.get(`${baseurl}/books/categories`);
+	const response = axios.get(`${baseurl}/books/categories`).catch((r) => r);
 	return response;
 }
 
 export function getBookById(id: Number) {
-	const response = axios.get(`${baseurl}/books/book/${id}`);
+	const response = axios.get(`${baseurl}/books/book/${id}`).catch((r) => r);
 	return response;
 }
 
@@ -22,7 +22,7 @@ export function addBookData(payload: FormData) {
 		headers: {
 			Authorization: `bearer ${localStorage.getItem("_token")}`,
 		},
-	});
+	}).catch((r) => r);
 
 	return response;
 }
@@ -32,7 +32,7 @@ export function updateBookData(payload: FormData) {
 		headers: {
 			Authorization: `bearer ${localStorage.getItem("_token")}`,
 		},
-	});
+	}).catch((r) => r);
 
 	return response;
 }
