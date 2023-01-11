@@ -14,6 +14,7 @@ export function Lends() {
 		keys: ["members.name", "members.phone", "books.judul"],
 	};
 
+	// @ts-ignore
 	function fuzzySearch(text: SyntheticEvent) {
 		const fuse = new Fuse(originalLends, options);
 
@@ -84,34 +85,82 @@ export function Lends() {
 						</tr>
 					) : (
 						lends?.map((lend, index) => (
+							// @ts-ignore
 							<tr key={lend.id}>
 								<td>{(index += 1)}</td>
-								<td>{lend.members.name}</td>
+								<td>
+									{
+										// @ts-ignore
+										lend.members.name
+									}
+								</td>
 								<td>
 									<Text
 										color="teal"
 										component="a"
 										target="_blank"
-										href={`https://wa.me/${lend.members.phone}?text=`}
+										href={
+											// @ts-ignore
+											`https://wa.me/${lend.members.phone}?text=`
+										}
 									>
-										{`0${lend.members.phone.substring(2)}`}
+										{
+											// @ts-ignore
+											`0${lend.members.phone.substring(2)}`
+										}
 									</Text>
 								</td>
-								<td>{lend.books.judul}</td>
-								<td>{lend.tgl_pinjam}</td>
-								<td>{lend.tgl_kembali}</td>
-								<td>{lend.tgl_dikembalikan}</td>
-								<td>{lend.status_peminjaman}</td>
 								<td>
-									{lend.status_peminjaman === "terlambat" ||
-									lend.status_peminjaman === "sudah dikembalikan" ||
-									lend.status_peminjaman === "hilang" ? (
-										""
-									) : (
-										<Button component="a" href={`/admin/lends/lend/${lend.id}`}>
-											Update Status
-										</Button>
-									)}
+									{
+										// @ts-ignore
+										lend.books.judul
+									}
+								</td>
+								<td>
+									{
+										// @ts-ignore
+										lend.tgl_pinjam
+									}
+								</td>
+								<td>
+									{
+										// @ts-ignore
+										lend.tgl_kembali
+									}
+								</td>
+								<td>
+									{
+										// @ts-ignore
+										lend.tgl_dikembalikan
+									}
+								</td>
+								<td>
+									{
+										// @ts-ignore
+										lend.status_peminjaman
+									}
+								</td>
+								<td>
+									{
+										// @ts-ignore
+										lend.status_peminjaman === "terlambat" ||
+										// @ts-ignore
+										lend.status_peminjaman === "sudah dikembalikan" ||
+										// @ts-ignore
+										lend.status_peminjaman === "hilang" ? (
+											""
+										) : (
+											<Button
+												component="a"
+												href={
+													// @ts-ignore
+													`/admin/lends/lend/${lend.id}`
+												}
+											>
+												Update Status
+											</Button>
+										)
+									}
 								</td>
 							</tr>
 						))

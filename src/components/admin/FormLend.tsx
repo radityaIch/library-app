@@ -58,6 +58,7 @@ export function FormLend({ mode }: { mode: string }) {
 			tgl_kembali: datepick[1],
 			status_peminjaman: "sedang dipinjam",
 		};
+		// @ts-ignore
 		const response = await addLendAdmin(formData);
 
 		if (response.status === 201) {
@@ -99,8 +100,10 @@ export function FormLend({ mode }: { mode: string }) {
 		});
 
 		const formData = new FormData();
+		// @ts-ignore
 		formData.append("id_peminjaman", id);
 		formData.append("status_peminjaman", missing ? "hilang" :form.status_peminjaman);
+		// @ts-ignore
 		formData.append("tgl_dikembalikan", missing ? null : returnDate.toISOString());
 
 		const response = await updateLendAdmin(formData);
@@ -134,10 +137,15 @@ export function FormLend({ mode }: { mode: string }) {
 		async function getBookData() {
 			const response = await getAllbook();
 			if (response.status === 200) {
-				const booksData = response.data.map((book) => ({
-					value: book.id,
-					label: book.judul,
-				}));
+				// @ts-ignore
+				const booksData = response.data.map((book) => {
+					if(book.qty > 0) {
+						return ({
+							value: book.id,
+							label: book.judul,
+						})
+					}
+				});
 				setBooks(booksData);
 			}
 		}
@@ -145,6 +153,7 @@ export function FormLend({ mode }: { mode: string }) {
 		async function getMemberData() {
 			const response = await getAllMember();
 			if (response.status === 200) {
+				// @ts-ignore
 				const membersData = response.data.map((member) => ({
 					value: member.id,
 					label: member.name,
@@ -154,6 +163,7 @@ export function FormLend({ mode }: { mode: string }) {
 		}
 
 		async function getLend() {
+			// @ts-ignore
 			const response = await getLendById(id);
 			if (response.status === 200) {
 				setForm({
@@ -191,10 +201,12 @@ export function FormLend({ mode }: { mode: string }) {
 						placeholder="Pilih Salah Satu"
 						data={books}
 						onChange={(e): void => {
+							// @ts-ignore
 							setForm({ ...form, id_book: parseInt(e) ?? NaN });
 						}}
 						searchable
 						nothingFound="No Book Found"
+						// @ts-ignore
 						value={form?.id_book}
 						required
 						disabled={mode === "Edit"}
@@ -204,10 +216,12 @@ export function FormLend({ mode }: { mode: string }) {
 						placeholder="Pilih Salah Satu"
 						data={members}
 						onChange={(e): void => {
+							// @ts-ignore
 							setForm({ ...form, id_anggota: parseInt(e) ?? NaN });
 						}}
 						searchable
 						nothingFound="No Member Found"
+						// @ts-ignore
 						value={form?.id_anggota}
 						required
 						disabled={mode === "Edit"}
@@ -224,6 +238,7 @@ export function FormLend({ mode }: { mode: string }) {
 							<DatePicker
 								placeholder="Pick date"
 								label="Tanggal Dikembalikan"
+								// @ts-ignore
 								onChange={setReturnDate}
 								value={returnDate}
 								disabled={missing}

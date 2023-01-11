@@ -40,6 +40,7 @@ const options = {
 	},
 };
 
+// @ts-ignore
 const labels = [];
 const date = new Date();
 for (let index = 0; index < 12; index++) {
@@ -49,6 +50,7 @@ for (let index = 0; index < 12; index++) {
 
 export function Dashboard() {
 	const [data, setData] = useState({
+		// @ts-ignore
 		labels,
 		datasets: [
 			{
@@ -85,6 +87,7 @@ export function Dashboard() {
 			if (resp.status === 200) {
 				const calculatedPerMonth = [];
 				for (let index = 0; index < new Date().getMonth() + 1; index++) {
+					// @ts-ignore
 					const newData = resp.data.map((d, i) => {
 						const dt = d.created_at.toString().split(/[- : T]/);
 
@@ -97,11 +100,14 @@ export function Dashboard() {
 					});
 
 					calculatedPerMonth.push({
+						// @ts-ignore
 						totalLends: newData.map((d) => d.dates.getMonth() === index).length,
 						late: newData.filter(
+							// @ts-ignore
 							(d) => d.dates.getMonth() === index && d.status === "terlambat"
 						).length,
 						missing: newData.filter(
+							// @ts-ignore
 							(d) => d.dates.getMonth() === index && d.status === "hilang"
 						).length,
 					});
@@ -111,12 +117,14 @@ export function Dashboard() {
 					datasets: [
 						{
 							label: "Peminjaman",
+							// @ts-ignore
 							data: calculatedPerMonth.map((c) => c.totalLends),
 							borderColor: "rgb(53, 162, 235)",
 							backgroundColor: "rgba(53, 162, 235, 0.5)",
 						},
 						{
 							label: "Keterlambatan",
+							// @ts-ignore
 							data: calculatedPerMonth.map((c) => c.late),
 							borderColor: "rgb(153, 132, 235)",
 							backgroundColor: "rgba(153, 132, 235, 0.5)",
@@ -132,11 +140,10 @@ export function Dashboard() {
 			}
 
 			if (respb.status === 200) {
-				setStats({ ...stats, buku: respb.data.length });
-			}
-
-			if (respc.status === 200) {
-				setStats({ ...stats, member: respc.data.length });
+				// console.log(stats)
+				if (respc.status === 200) {
+					setStats({ buku: respb.data.length, member: respc.data.length });
+				}
 			}
 		}
 

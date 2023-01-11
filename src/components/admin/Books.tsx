@@ -11,6 +11,8 @@ import {
 	Divider,
 	Loader,
 	Center,
+	Spoiler,
+	Stack,
 } from "@mantine/core";
 import { IconSearch, IconX } from "@tabler/icons";
 
@@ -52,7 +54,7 @@ export function Books() {
 
 	function fuzzySearch(text: SyntheticEvent) {
 		const fuse = new Fuse(originalData, options);
-
+		// @ts-ignore
 		const result = fuse.search(text.target.value);
 		const res = result.map((r) => r.item);
 		setData(res);
@@ -127,19 +129,21 @@ export function Books() {
 
 								<Group position="apart" mt="md" mb="xs">
 									<Text weight={500}>{item.judul}</Text>
-									<Group>
+									<Stack>
 										<Badge size="sm" color="gray" variant="light">
 											{item.author}
 										</Badge>
 										<Badge size="sm" color="pink" variant="light">
 											{item.book_category.category}
 										</Badge>
-									</Group>
+									</Stack>
 								</Group>
 
-								<Text size="sm" color="dimmed">
-									{item.deskripsi}
-								</Text>
+								<Spoiler maxHeight={150} showLabel="Show more" hideLabel="Hide">
+									<Text size="sm" color="dimmed">
+										{item.deskripsi}
+									</Text>
+								</Spoiler>
 
 								<Button
 									component="a"

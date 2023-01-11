@@ -16,7 +16,7 @@ export function getLendById(id: number) {
 	return response;
 }
 
-export function addLendAdmin(payload) {
+export function addLendAdmin(payload: FormData) {
 	const response = axios.post(`${baseurl}/lends/lend/add`, payload, options).catch((r) => r);
 	return response;
 }

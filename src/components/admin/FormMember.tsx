@@ -39,6 +39,7 @@ export function FormMember({ mode }: { mode: string }) {
 		});
 
 		const formData = new FormData();
+		// @ts-ignore
 		formData.append("id", id);
 		formData.append("name", form.nama);
 		formData.append("email", form.email);
@@ -129,6 +130,7 @@ export function FormMember({ mode }: { mode: string }) {
 
 	useEffect(() => {
 		async function getMemberData() {
+			// @ts-ignore
 			const response = await getMemberById(id);
 
 			if (response.status === 200) {

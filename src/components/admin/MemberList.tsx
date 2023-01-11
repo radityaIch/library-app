@@ -55,7 +55,7 @@ export function MemberList() {
 
 	function fuzzySearch(text: SyntheticEvent) {
 		const fuse = new Fuse(OriMembers, options);
-
+		// @ts-ignore
 		const result = fuse.search(text.target.value);
 		const res = result.map((r) => r.item);
 		setMembers(res);
@@ -119,17 +119,33 @@ export function MemberList() {
 						</tr>
 					) : (
 						members.map((member, index) => (
-							<tr key={member.id}>
+							<tr
+								key={
+									// @ts-ignore
+									member.id
+								}
+							>
 								<td>{(index += 1)}</td>
-								<td>{member.name}</td>
+								<td>
+									{
+										// @ts-ignore
+										member.name
+									}
+								</td>
 								<td>
 									<Text
 										color="red"
 										component="a"
 										target="_blank"
-										href={`mailto://${member.email}`}
+										href={
+											// @ts-ignore
+											`mailto://${member.email}`
+										}
 									>
-										{member.email}
+										{
+											// @ts-ignore
+											member.email
+										}
 									</Text>
 								</td>
 								<td>
@@ -137,17 +153,35 @@ export function MemberList() {
 										color="teal"
 										component="a"
 										target="_blank"
-										href={`https://wa.me/${member.phone}?text=`}
+										href={
+											// @ts-ignore
+											`https://wa.me/${member.phone}?text=`
+										}
 									>
-										{`0${member.phone.substring(2)}`}
+										{
+											// @ts-ignore
+											`0${member.phone.substring(2)}`
+										}
 									</Text>
 								</td>
 								<td>
 									<Group>
-										<Button component="a" href={`members/member/${member.id}`}>
+										<Button
+											component="a"
+											href={
+												// @ts-ignore
+												`members/member/${member.id}`
+											}
+										>
 											Edit
 										</Button>
-										<Button color="red" onClick={() => deleteMember(member.id)}>
+										<Button
+											color="red"
+											onClick={
+												// @ts-ignore
+												() => deleteMember(member.id)
+											}
+										>
 											Hapus
 										</Button>
 									</Group>

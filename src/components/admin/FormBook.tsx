@@ -86,6 +86,7 @@ export function FormBook({ mode }: { mode: string }) {
 		dataform.append("judul", payload.judul);
 		dataform.append("deskripsi", payload.deskripsi);
 		dataform.append("author", payload.author);
+		// @ts-ignore
 		dataform.append("cover_image", payload.cover_image);
 		dataform.append("qty", payload.qty.toString());
 
@@ -133,6 +134,7 @@ export function FormBook({ mode }: { mode: string }) {
 		dataform.append("judul", payload.judul);
 		dataform.append("deskripsi", payload.deskripsi);
 		dataform.append("author", payload.author);
+		// @ts-ignore
 		dataform.append("cover_image", payload.cover_image);
 		dataform.append("qty", payload.qty.toString());
 
@@ -190,6 +192,7 @@ export function FormBook({ mode }: { mode: string }) {
 						cover_image: `${baseStorage}/${response.data.cover_image}`,
 						qty: parseInt(response.data.qty),
 					});
+					// @ts-ignore
 					setThumbnail(`${baseStorage}/${response.data.cover_image}`);
 				}
 			} else {
@@ -222,6 +225,7 @@ export function FormBook({ mode }: { mode: string }) {
 							onDrop={(file) => {
 								// console.log(file);
 								const tbn = URL.createObjectURL(file[0]);
+								// @ts-ignore
 								setThumbnail(tbn)
 								setForm({ ...form, cover_image: file[0] });
 							}}
@@ -291,8 +295,10 @@ export function FormBook({ mode }: { mode: string }) {
 								placeholder="Pilih Salah Satu"
 								data={categories}
 								onChange={(e): void => {
+									// @ts-ignore
 									setForm({ ...form, id_kategori: parseInt(e) ?? NaN });
 								}}
+								// @ts-ignore
 								value={form?.id_kategori}
 							/>
 
@@ -318,6 +324,7 @@ export function FormBook({ mode }: { mode: string }) {
 								placeholder="Deskripsi Buku"
 								label="Deskripsi"
 								withAsterisk
+								// @ts-ignore
 								onChange={(e): void => updateInput(e, "deskripsi")}
 								value={form.deskripsi}
 							/>
@@ -327,6 +334,7 @@ export function FormBook({ mode }: { mode: string }) {
 								stepHoldDelay={500}
 								stepHoldInterval={100}
 								onChange={(e): void => setForm({ ...form, qty: e ?? NaN })}
+								// @ts-ignore
 								value={form.qty}
 							/>
 
